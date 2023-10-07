@@ -3,13 +3,16 @@ import classes from './Task.module.css'
 
 interface ITaskProps {
   task: TaskDTO
+  handleToggle: (index: number) => void
+  handleDelete: (index: number) => void
+  idx: number
 }
 
-const Task = ({ task }: ITaskProps) => {
+const Task = ({ task, handleToggle, idx, handleDelete }: ITaskProps) => {
   //   console.log(task)
   return (
-    <div className={classes.card}>
-      <p>{task.todo}</p>
+    <div className={task.isDone ? `${classes.card} ${classes.completed}` : classes.card}>
+      <p onClick={() => handleToggle(idx)}>{task.todo}</p>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -17,7 +20,7 @@ const Task = ({ task }: ITaskProps) => {
         strokeWidth={1.5}
         stroke="currentColor"
         className={classes.delete}
-        // onClick={}
+        onClick={() => handleDelete(idx)}
       >
         <path
           strokeLinecap="round"

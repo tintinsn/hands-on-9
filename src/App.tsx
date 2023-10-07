@@ -44,8 +44,16 @@ function App() {
     setNewTask('')
   }
 
-  const handleToggle = (id) => {
-    console.log(id)
+  const handleToggle = (index: number) => {
+    const currentTask = [...tasks]
+    currentTask[index].isDone = !currentTask[index].isDone
+    setTasks(currentTask)
+  }
+
+  const handleDelete = (index: number) => {
+    const currentTask = [...tasks]
+    currentTask.splice(index, 1)
+    setTasks(currentTask)
   }
 
   return (
@@ -57,8 +65,8 @@ function App() {
         <input type="submit" value="Add" />
       </form>
       <div className="todo-container">
-        {tasks.map((task) => {
-          return <Task key={task.id} task={task} />
+        {tasks.map((task, idx) => {
+          return <Task key={task.id} task={task} idx={idx} handleToggle={handleToggle} handleDelete={handleDelete} />
         })}
       </div>
     </div>
